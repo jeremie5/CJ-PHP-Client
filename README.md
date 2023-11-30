@@ -49,6 +49,9 @@ Responses from API requests are returned as associative arrays containing status
 ## API Reference
 The CJDropshipping API documentation can be found at https://developers.cjdropshipping.cn/en/api/introduction.html
 
+## Disclaimer
+We are not directly affiliated with CJDropshipping.
+
 ## Financial Contribution
 For financial support that won't cost you a dime, you may use our CJ affiliate links:
 https://cjdropshipping.com/register.html?token=6ecdb2e8-4a45-468b-8e9a-691db1525c72
