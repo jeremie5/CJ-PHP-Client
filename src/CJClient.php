@@ -59,7 +59,7 @@ class CJClient{
         }
     }
 	
-    public function createRequest(string $endpoint_path, $method='POST', array $payload, callable|null $callback = null) {
+    public function createRequest(string $endpoint_path, $method='POST', ?array $payload=null, callable|null $callback = null) {
         $url = self::API_BASE_URL . '/' . $endpoint_path;
         $headers = [
             'CJ-Access-Token' => $this->access_token,
