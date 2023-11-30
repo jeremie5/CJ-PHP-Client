@@ -1,5 +1,5 @@
 {
-    "name": "cj/cj-client",
+    "name": "jeremie5/cj-client",
     "description": "PHP library for interacting with CJDropshipping's Developer API.",
     "type": "library",
     "require": {
