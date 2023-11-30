@@ -46,9 +46,6 @@ The class throws exceptions for critical failures like network issues, authentic
 ## Response Handling
 Responses from API requests are returned as associative arrays containing status, message, and data (if available).
 
-## Note
-This class requires an external HttpClient class for making HTTP requests, which is not provided in this snippet.
-
 ## API Reference
 The CJDropshipping API documentation can be found at https://developers.cjdropshipping.cn/en/api/introduction.html
 
