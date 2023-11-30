@@ -32,7 +32,7 @@ $CJClient = new CJ\CJClient('your-email@example.com', 'yourPassword');
 Upon instantiation, the class attempts to authenticate with the CJ API to obtain an access token. 
 The token is automatically managed and refreshed by the class.
 
-## Usage
+## Low Level Usage
 Use the `createRequest` method to send requests to the CJ API. Specify the endpoint, request method, payload, and optionally a queue or a callback function.
 ```php
 <?php
