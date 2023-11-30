@@ -16,7 +16,7 @@ class CJClient{
 
     public function __construct(string $email, string $password){
         if (version_compare(PHP_VERSION, '8.0.0', '<')) {
-            throw new \Exception("ShopiroClient requires PHP version 8.0 or higher.");
+            throw new \Exception("CJCLient requires PHP version 8.0 or higher.");
         }
         $this->email = $email;
         $this->password = $password;
