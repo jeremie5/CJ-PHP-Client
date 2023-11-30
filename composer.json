@@ -2,6 +2,7 @@
     "name": "jeremie5/cj-client",
     "description": "PHP library for interacting with CJDropshipping's Developer API.",
     "type": "library",
+    "licence": "MIT",
     "require": {
         "php": ">=8.0"
     },
