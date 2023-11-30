@@ -7,7 +7,7 @@
     },
     "autoload": {
         "psr-4": {
-            CJ\\": "src/"
+            CJ": "src/"
         }
     }
 }
