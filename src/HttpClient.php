@@ -22,8 +22,12 @@ class HttpClient {
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, strtoupper($method));
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         if (!empty($data)) {
-            if ($method === 'POST' || $method === 'PUT') {
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            if ($method === 'GET') {
+                $queryString = is_array($data) ? http_build_query($data) : $data;
+                curl_setopt($ch, CURLOPT_URL, $url . '?' . $queryString);
+            } else if ($method === 'POST' || $method === 'PUT') {
+                $jsonData = is_string($data) ? $data : json_encode($data);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
             }
         }
         $response = curl_exec($ch);

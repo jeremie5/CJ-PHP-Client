@@ -35,8 +35,7 @@ class CJClient{
             $expiryDate = new \DateTime($tokenData['accessTokenExpiryDate']);
             $now = new \DateTime();
             if ($expiryDate > $now) {
-                self::$access_token = $tokenData['accessToken'];
-                return;
+               return self::$access_token = $tokenData['accessToken'];
             }
         }
         $this->requestNewAccessToken();
@@ -58,7 +57,7 @@ class CJClient{
         }
 		else
 		{
-            throw new \Exception('Failed to authenticate with CJ API');
+            throw new \Exception('Failed to authenticate with CJ API, error '.$decodedResponse['code']);
         }
     }
 	
