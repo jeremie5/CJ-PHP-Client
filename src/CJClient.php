@@ -6,11 +6,9 @@ class CJClient{
     private $email;
     private $password;
 	
-	private $access_token;
-	
-	public $max_network_retries;
-	
-	private $httpClient;
+	private static $access_token;
+	public static $max_network_retries;
+	private static $httpClient;
 
 	const API_BASE_URL="https://developers.cjdropshipping.com/api2.0/v1";
 
@@ -20,19 +18,24 @@ class CJClient{
         }
         $this->email = $email;
         $this->password = $password;
-		$this->max_network_retries=3;
-		$this->httpClient = new HttpClient();
+		self::$max_network_retries = 3;
 		$this->getAccessToken();
     }
 	
     private function getAccessToken() {
         $tokenFile = __DIR__ . '/AccessToken.json';
+		if (!is_writable($tokenFile)) {
+			throw new \Exception('Cannot write to '.$tokenFile);
+		}
+		if (!is_readable($tokenFile)) {
+			throw new \Exception('Cannot read from '.$tokenFile);
+		}
         if (file_exists($tokenFile)) {
             $tokenData = json_decode(file_get_contents($tokenFile), true);
             $expiryDate = new \DateTime($tokenData['accessTokenExpiryDate']);
             $now = new \DateTime();
             if ($expiryDate > $now) {
-                $this->access_token = $tokenData['accessToken'];
+                self::$access_token = $tokenData['accessToken'];
                 return;
             }
         }
@@ -43,7 +46,7 @@ class CJClient{
         $url = self::API_BASE_URL . '/authentication/getAccessToken';
         $headers = ['Content-Type' => 'application/json'];
         $data = json_encode(['email' => $this->email, 'password' => $this->password]);
-        $response = $this->httpClient->sendRequest($url, 'POST', $data, $headers);
+        $response = \CJ\HttpClient::sendRequest($url, 'POST', $data, $headers, self::$max_network_retries);
         if ($response === false) {
             throw new \Exception('Failed to get new access token');
         }
@@ -51,7 +54,7 @@ class CJClient{
         if ($decodedResponse['code'] == 200 && $decodedResponse['result']) {
             $tokenData = $decodedResponse['data'];
             file_put_contents(__DIR__ . '/AccessToken.json', json_encode($tokenData));
-            $this->access_token = $tokenData['accessToken'];
+            self::$access_token = $tokenData['accessToken'];
         }
 		else
 		{
@@ -59,28 +62,33 @@ class CJClient{
         }
     }
 	
-    public function createRequest(string $endpoint_path, $method='POST', ?array $payload=null, callable|null $callback = null) {
+    public static function createRequest(string $endpoint_path, $method='POST', ?array $payload=null, callable|null $callback = null) {
+		if(!isset(self::$access_token)){
+			throw new \Exception('CJClient class not initialized');
+		}
         $url = self::API_BASE_URL . '/' . $endpoint_path;
         $headers = [
-            'CJ-Access-Token' => $this->access_token,
+            'CJ-Access-Token' => self::$access_token,
             'Content-Type' => 'application/json'
         ];
-        $data = json_encode($payload);
-        if ($data === false) {
-            throw new \Exception('Failed to encode payload to JSON');
+		if(!is_null($payload)){
+			$data = json_encode($payload);
+			if ($data === false) {
+				throw new \Exception('Failed to encode payload to JSON');
+			}
         }
-        $response = $this->httpClient->sendRequest($url, $method, $data, $headers, $this->max_network_retries);
+        $response =  \CJ\HttpClient::sendRequest($url, $method, $data, $headers, self::$max_network_retries);
         if ($response === false) {
-            throw new \Exception('CURL request failed after ' . $this->max_network_retries . ' attempts');
+            throw new \Exception('CURL request failed after ' . self::$max_network_retries . ' attempts');
         }
         $decodedResponse = json_decode($response, true);
         if (null === $decodedResponse) {
             throw new \Exception('Invalid JSON response');
         }
-        return $this->processResponse($decodedResponse);
+        return self::processResponse($decodedResponse);
     }
 	
-    private function processResponse(array $response) {
+    private static function processResponse(array $response) {
         if ($response['code'] == 200) {
             return [
                 'status' => 'success',

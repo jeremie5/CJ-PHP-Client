@@ -126,15 +126,15 @@ class Product {
 	 *
 	 * Note: productName and productImage are mandatory fields for the sourcing request.
 	 *
-	 * @param string|null $criterias JSON string of the sourcing request criteria.
+	 * @param array $criterias array of the sourcing request criteria.
 	 * @return mixed Response from CJClient.
 	 */
-	public static function createSourcingRequest(?string $criterias=null) {
+	public static function createSourcingRequest(array $criterias) {
 		$response = \CJ\CJClient::createRequest($endpoint="product/sourcing/create", $method="POST", $payload=$criterias);
 		return $response;
 	}
 	
-	public static function getSourcingRequest(?string|array $requestIds=null) {
+	public static function getSourcingRequest(string|array $requestIds) {
 		if(!is_array($requestIds) && is_string($requestIds))$requestIds[]=$requestIds;
 		$response = \CJ\CJClient::createRequest($endpoint="product/sourcing/query", $method="POST", $payload=$requestIds);
 		return $response;

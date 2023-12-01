@@ -1,7 +1,7 @@
 <?php
 namespace CJ;
 
-class Balance {
+class Logistic {
 
 	/**
 	 * Calculates freight based on specified criteria.

@@ -17,7 +17,7 @@ The library is designed with simplicity and efficiency in mind, making it suitab
 ## Installation
 You can install the CJDropshipping PHP Client Library via Composer:
 ```bash
-composer require jeremie5/cj-client
+composer require CJ/CJ-client
 ```
 
 ## Initialization
@@ -32,8 +32,8 @@ $CJClient = new CJ\CJClient('your-email@example.com', 'yourPassword');
 Upon instantiation, the class attempts to authenticate with the CJ API to obtain an access token. 
 The token is automatically managed and refreshed by the class.
 
-## Low Level Usage
-Use the `createRequest` method to send requests to the CJ API. Specify the endpoint, request method, payload, and optionally a callback function.
+## Usage
+Use the `createRequest` method to send requests to the CJ API. Specify the endpoint, request method, payload, and optionally a queue or a callback function.
 ```php
 <?php
 $response = $CJClient->createRequest('endpoint/path', 'POST', ['param1' => 'value1']);
@@ -46,11 +46,11 @@ The class throws exceptions for critical failures like network issues, authentic
 ## Response Handling
 Responses from API requests are returned as associative arrays containing status, message, and data (if available).
 
+## Note
+This class requires an external HttpClient class for making HTTP requests, which is not provided in this snippet.
+
 ## API Reference
 The CJDropshipping API documentation can be found at https://developers.cjdropshipping.cn/en/api/introduction.html
-
-## Disclaimer
-We are not directly affiliated with CJDropshipping.
 
 ## Financial Contribution
 For financial support that won't cost you a dime, you may use our CJ affiliate links:
