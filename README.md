@@ -33,10 +33,10 @@ Upon instantiation, the class attempts to authenticate with the CJ API to obtain
 The token is automatically managed and refreshed by the class.
 
 ## Usage
-Use the `createRequest` method to send requests to the CJ API. Specify the endpoint, request method, payload, and optionally a queue or a callback function.
+Use the `createRequest` method to send requests to the CJ API. Specify the endpoint, request method, payload, and optionally a callback function.
 ```php
 <?php
-$response = $CJClient->createRequest('endpoint/path', 'POST', ['param1' => 'value1']);
+$response = \JC\CJClient::createRequest('endpoint/path', 'POST', ['param1' => 'value1']);
 ?>
 ```
 
