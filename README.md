@@ -24,7 +24,7 @@ composer require jeremie5/cj-client
 Create an instance of `CJClient` with your CJDropshipping email and password.
 ```php
 <?php
-new jeremie5\cjclient('your-email@example.com', 'yourPassword');
+new CJ\CJClient('your-email@example.com', 'yourPassword');
 ?>
 ```
 
