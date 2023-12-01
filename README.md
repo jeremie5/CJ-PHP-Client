@@ -17,7 +17,7 @@ The library is designed with simplicity and efficiency in mind, making it suitab
 ## Installation
 You can install the CJDropshipping PHP Client Library via Composer:
 ```bash
-composer require CJ/CJ-client
+composer require jeremie5/cj-client
 ```
 
 ## Initialization
